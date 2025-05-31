@@ -25,17 +25,17 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
-        PasswordEncoder encoder = passwordEncoder();
-        String password = encoder.encode("1234"); // Encode once
-
-        return new InMemoryUserDetailsManager(
-                User.withUsername("user1").password(password).roles("USER").build(),
-                User.withUsername("user2").password(password).roles("USER").build(),
-                User.withUsername("admin").password(password).roles("USER", "ADMIN").build()
-        );
-    }
+//    @Bean
+//    public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
+//        PasswordEncoder encoder = passwordEncoder();
+//        String password = encoder.encode("1234"); // Encode once
+//
+//        return new InMemoryUserDetailsManager(
+//                User.withUsername("user1").password(password).roles("USER").build(),
+//                User.withUsername("user2").password(password).roles("USER").build(),
+//                User.withUsername("admin").password(password).roles("USER", "ADMIN").build()
+//        );
+//    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
