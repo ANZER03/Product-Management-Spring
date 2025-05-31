@@ -13,7 +13,7 @@
             <h3 class="card-title">Add New Product</h3>
           </div>
           <div class="card-body">
-            <form th:action="@{/products/save}" method="post" th:object="${product}">
+            <form th:action="@{/admin/saveProduct}" method="post" th:object="${product}">
               <!-- Hidden ID field for updates -->
               <input type="hidden" th:field="*{id}">
               

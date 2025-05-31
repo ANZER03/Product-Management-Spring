@@ -1,5 +1,6 @@
 package ma.enset.productmangmentspring.web;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import ma.enset.productmangmentspring.entities.Product;
 import ma.enset.productmangmentspring.repo.ProductRepository;
@@ -21,23 +22,39 @@ public class ProductController {
 
     @GetMapping("/")
     public String home() {
-        return "redirect:/products";
+        return "redirect:/user/index";
     }
 
-    @GetMapping("/products")
+    @GetMapping("/user/index")
     public String products(Model model) {
         List<Product> products = productRepository.findAll();
         model.addAttribute("products", products);
         return "products";
     }
 
-    @GetMapping("/products/add")
+    @GetMapping("/user/search")
+    public String productSearch(@RequestParam(name="name", required = false) String name, Model model) {
+
+        List<Product> products;
+        if (name != null && !name.trim().isEmpty()){
+            products = productRepository.findProductByNameContainingIgnoreCase(name);
+        }else{
+            products = productRepository.findAll();
+        }
+
+        model.addAttribute("products", products);
+
+        return "products";
+    }
+
+
+    @GetMapping("/admin/newProduct")
     public String addProductForm(Model model) {
         model.addAttribute("product", new Product());
         return "add-product";
     }
 
-    @GetMapping("/products/edit/{id}")
+    @GetMapping("/admin/products/edit/{id}")
     public String editProductForm(@PathVariable Long id, Model model) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid product ID: " + id));
@@ -45,24 +62,42 @@ public class ProductController {
         return "add-product";
     }
 
-    @PostMapping("/products/save")
+    @PostMapping("/admin/saveProduct")
     public String saveProduct(@Valid @ModelAttribute("product") Product product, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "add-product";
         }
         productRepository.save(product);
-        return "redirect:/products";
+        return "redirect:/admin/newProduct";
     }
 
-    @PostMapping("/products/delete")
+    @PostMapping("/admin/deleteProduct")
     public String deleteProduct(@RequestParam(name = "id") Long id) {
         productRepository.deleteById(id);
-        return "redirect:/products";
+        return "redirect:/user/index";
     }
+
+    @GetMapping("/login")
+    public String login(){
+        return "login";
+    }
+    @GetMapping("/logout")
+    public String logout(HttpSession session){
+        session.invalidate();
+        return "login";
+    }
+
+    @GetMapping("/notAuthorized")
+    public String notAuthorized(){
+        return "notAuthorized";
+    }
+
 
     @GetMapping("/api/products")
     @ResponseBody
     public List<Product> listProducts() {
         return productRepository.findAll();
     }
+
+
 }

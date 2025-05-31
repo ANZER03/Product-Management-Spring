@@ -1,61 +1,115 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Product Management</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Product Management</title>
 
-  <!-- Bootstrap CSS from CDN -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-  <!-- Bootstrap Icons from CDN -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Bootstrap CSS from CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Bootstrap Icons from CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-  <!-- Custom CSS -->
-  <style>
-    .navbar {
-      margin-bottom: 20px;
-    }
-    .footer {
-      margin-top: 50px;
-      padding: 20px 0;
-      background-color: #f8f9fa;
-      text-align: center;
-    }
-  </style>
+    <!-- Custom CSS -->
+    <style>
+        .navbar {
+            margin-bottom: 20px;
+        }
+
+        .footer {
+            margin-top: 50px;
+            padding: 20px 0;
+            background-color: #f8f9fa;
+            text-align: center;
+        }
+
+        .navbar-nav .nav-item {
+            margin-right: 10px;
+        }
+
+        .dropdown-menu {
+            min-width: 200px;
+        }
+    </style>
 </head>
 <body>
-  <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-      <a class="navbar-brand" href="/">Product Management</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" th:href="@{/products}">Products</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" th:href="@{/products/add}">Add Product</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+        <a class="navbar-brand" href="/">Product Management</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/user/index}">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/admin/newProduct}">Add Product</a>
+                </li>
+            </ul>
 
-  <!-- Main Content -->
-  <div class="container mt-4">
+            <!-- User Profile Dropdown -->
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-person-circle"></i>
+                        <span th:if="${#authentication?.principal?.username != null}"
+                              th:text="${#authentication.principal.username}">User</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li>
+                            <a class="dropdown-item" href="#">
+                                <i class="bi bi-person"></i> Profile
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#">
+                                <i class="bi bi-gear"></i> Settings
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <form th:action="@{/logout}" method="post">
+                                <button type="submit" class="dropdown-item">
+                                    <i class="bi bi-box-arrow-right"></i> Logout
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<div class="container mt-4">
     <div layout:fragment="content">
-      <!-- Page content will be inserted here -->
+        <!-- Page content will be inserted here -->
     </div>
-  </div>
-  <!-- Bootstrap JS Bundle with Popper from CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</div>
 
-  <!-- Custom JavaScript -->
-  <th:block layout:fragment="scripts">
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <span class="text-muted">© 2023 Product Management System</span>
+    </div>
+</footer>
+
+<!-- Bootstrap JS Bundle with Popper from CDN -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+
+<!-- Custom JavaScript -->
+<th:block layout:fragment="scripts">
     <!-- Page specific scripts will be inserted here -->
-  </th:block>
+</th:block>
 </body>
 </html>

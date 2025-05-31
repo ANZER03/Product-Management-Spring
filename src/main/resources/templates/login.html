@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Login Page</title>
+
+    <!-- Bootstrap CSS from CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Bootstrap Icons from CDN -->
+<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .login-container {
+            max-width: 400px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .login-card {
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .login-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .login-header {
+            background: linear-gradient(to right, #4b6cb7, #182848);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .login-body {
+            padding: 30px;
+            background: white;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group-text {
+            background-color: #f8f9fa;
+            border-right: none;
+        }
+
+        .form-control {
+            border-left: none;
+            padding-left: 5px;
+        }
+
+        .form-control:focus {
+            box-shadow: none;
+            border-color: #ced4da;
+        }
+
+        .btn-login {
+            background: linear-gradient(to right, #4b6cb7, #182848);
+            border: none;
+            border-radius: 30px;
+            padding: 10px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-login:hover {
+            background: linear-gradient(to right, #182848, #4b6cb7);
+            transform: scale(1.03);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .footer-links a {
+            color: #6c757d;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: #4b6cb7;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <h2><i class="fas fa-lock me-2"></i>Account Login</h2>
+                <p class="mb-0 mt-2">Please enter your credentials</p>
+            </div>
+
+            <div class="login-body">
+                <form method="post" th:action="@{/login}">
+                    <!-- Username Input -->
+                    <div class="input-group mb-4">
+                            <span class="input-group-text">
+                                <i class="fas fa-user"></i>
+                            </span>
+                        <input type="text" name="username" class="form-control" placeholder="Username" required>
+                    </div>
+
+                    <!-- Password Input -->
+                    <div class="input-group mb-4">
+                            <span class="input-group-text">
+                                <i class="fas fa-key"></i>
+                            </span>
+                        <input type="password" name="password" class="form-control" placeholder="Password" required>
+                    </div>
+
+                    <!-- Login Button -->
+                    <button type="submit" class="btn btn-login w-100 text-white">
+                        <i class="fas fa-sign-in-alt me-2"></i>Login
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
