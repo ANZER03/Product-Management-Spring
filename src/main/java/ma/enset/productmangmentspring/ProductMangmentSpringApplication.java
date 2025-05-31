@@ -35,8 +35,8 @@ public class ProductMangmentSpringApplication {
 
             productRepository.findAll().forEach(System.out::println);
 
-            userRepository.save(new AppUser().builder().username("admin").password(encoder.encode("1234")).roles(Arrays.asList("ADMIN" , "USER")).build());
-            userRepository.save(new AppUser().builder().username("user1").password(encoder.encode("1234")).roles(List.of("USER")).build());
+//            userRepository.save(new AppUser().builder().username("admin").password(encoder.encode("1234")).roles(Arrays.asList("ADMIN" , "USER")).build());
+//            userRepository.save(new AppUser().builder().username("user1").password(encoder.encode("1234")).roles(List.of("USER")).build());
         };
     }
 
